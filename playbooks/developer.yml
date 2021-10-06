@@ -1,5 +1,9 @@
----
-- gather_facts: no
+- name: Configure developer environment
+  gather_facts: no
   hosts: localhost
+  connection: local
+  vars:
+    ansible_remote_tmp: /tmp
   roles:
-    - vscoder
+    - poweruser
+    - web-developer

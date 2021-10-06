@@ -1,0 +1,15 @@
+- name: "Install Visual Studio Code"
+  community.general.homebrew_cask:
+    name: visual-studio-code
+    state: present
+
+- name: "Install jq"
+  community.general.homebrew:
+    name: jq
+    state: present
+
+- name: "Install ngrok"
+  community.general.homebrew_cask:
+    name: ngrok
+    state: present
+
