@@ -1,0 +1,5 @@
+---
+- gather_facts: no
+  hosts: localhost
+  roles:
+    - vscoder

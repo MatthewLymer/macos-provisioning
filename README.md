@@ -13,3 +13,8 @@ The following prerequisites are necessary:
 ```
 brew install ansible
 ```
+
+# Provisioning your machine (as a developer)
+```
+ansible-playbook playbooks/developer.yml
+```
