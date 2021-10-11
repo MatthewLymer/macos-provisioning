@@ -1,6 +1,8 @@
 ---
 - gather_facts: no
   hosts: all
+  vars:
+    ansible_remote_tmp: /tmp
   roles:
     - poweruser
     - web-developer
