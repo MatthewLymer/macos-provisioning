@@ -1,5 +1,6 @@
 ---
 - gather_facts: no
-  hosts: localhost
+  hosts: all
   roles:
-    - vscoder
+    - poweruser
+    - web-developer

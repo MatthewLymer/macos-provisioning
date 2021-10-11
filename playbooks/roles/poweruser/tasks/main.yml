@@ -1,0 +1,9 @@
+- name: Install htop
+  community.general.homebrew:
+    name: htop
+    state: present
+
+- name: Install jq
+  community.general.homebrew:
+    name: jq
+    state: present

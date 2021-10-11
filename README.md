@@ -16,5 +16,5 @@ brew install ansible
 
 # Provisioning your machine (as a developer)
 ```
-ansible-playbook playbooks/developer.yml
+ansible-playbook playbooks/developer.yml -i playbooks/local-inventory
 ```
