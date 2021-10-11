@@ -1,0 +1,20 @@
+# This role is a bit of a bummer as it only installs the latest version of the
+# dotnet SDK, it would be better to specify the SDK version, additionally
+# have multiple versions installed side-by-side
+- name: "Install Dotnet SDK"
+  community.general.homebrew_cask:
+    name: dotnet-sdk
+    state: present
+
+- name: "Install JetBrains Rider"
+  community.general.homebrew_cask:
+    name: rider
+    state: present
+
+- name: "Create JetBrains Rider shortcut"
+  copy:
+    dest: /usr/local/bin/rider
+    mode: +x
+    content: |
+      #!/bin/sh
+      open -na "Rider.app" --args "$@"
