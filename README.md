@@ -4,17 +4,15 @@ MacOS development environment provisioning
 # Prerequisites
 The following prerequisites are necessary:
 
-## Homebrew
+## Install Homebrew and Ansible (run as elevated)
 ```
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)”
 ```
-
-## Ansible
 ```
 brew install ansible
 ```
 
-# Provisioning your machine (as a developer)
+# Provisioning your machine (run as elevated)
 ```
-ansible-playbook playbooks/developer.yml -i playbooks/local-inventory
+ansible-playbook playbooks/developer.yml -i ./playbooks/local-inventory
 ```

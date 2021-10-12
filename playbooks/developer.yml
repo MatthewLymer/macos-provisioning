@@ -5,5 +5,6 @@
     ansible_remote_tmp: /tmp
   roles:
     - poweruser
+    - any-developer
     - web-developer
     - dotnet-developer
