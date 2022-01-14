@@ -1,0 +1,6 @@
+- name: "Add gcloud docker alias"
+  blockinfile:
+    path: ~/.zshrc
+    create: true
+    block: |
+      alias gcloud='docker run --rm -it --volume ${HOME}/.config/gcloud:/root/.config/gcloud --volume ${PWD}:/workdir --workdir="/workdir" google/cloud-sdk gcloud'

@@ -14,5 +14,5 @@ brew install ansible
 
 # Provisioning your machine (run as elevated)
 ```
-ansible-playbook playbooks/developer.yml -i ./playbooks/local-inventory
+ansible-playbook playbooks/developer.yml --ask-become-pass --inventory ./playbooks/local-inventory
 ```

@@ -1,10 +1,44 @@
 # This role is a bit of a bummer as it only installs the latest version of the
 # dotnet SDK, it would be better to specify the SDK version, additionally
 # have multiple versions installed side-by-side
-- name: "Install Dotnet SDK"
-  community.general.homebrew_cask:
-    name: dotnet-sdk
-    state: present
+
+- name: Install gnu-tar
+  community.general.homebrew:
+    name: gnu-tar
+    state: present  
+
+- name: Create dotnet directory
+  file:
+    path: /usr/local/share/dotnet
+    state: directory
+
+- block:
+    - name: "Install dotnet-sdk-6.0.101-osx-x64 : Determine whether SDK is installed"
+      command: dotnet --list-sdks | grep -q ^6\.0\.101\\s  
+      failed_when: false
+      register: dotnet_6_0_101_sdk
+      changed_when: false
+
+    - name: "Install dotnet-sdk-6.0.101-osx-x64 : Install SDK"
+      when: dotnet_6_0_101_sdk.rc != 0
+      ansible.builtin.unarchive:
+        src: https://download.visualstudio.microsoft.com/download/pr/4a39aac8-74b7-4366-81cd-4fcce0bd8354/02a581437c26bd88f5afc6ccc81d9637/dotnet-sdk-6.0.101-osx-x64.tar.gz
+        dest: /usr/local/share/dotnet
+        remote_src: yes
+
+- name: "Add dotnet to path"
+  become: true
+  copy:
+    dest: /etc/paths.d/dotnet
+    content: |
+      /usr/local/share/dotnet
+
+- name: "Add dotnet-cli-tools to path"
+  become: true
+  copy:
+    dest: /etc/paths.d/dotnet-cli-tools
+    content: |
+      ~/.dotnet/tools    
 
 - name: "Install JetBrains Rider"
   community.general.homebrew_cask:

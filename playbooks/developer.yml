@@ -3,8 +3,23 @@
   hosts: all
   vars:
     ansible_remote_tmp: /tmp
+  pre_tasks:
+    - name: "Ensure current user has admin privileges"
+      ansible.builtin.shell:
+        cmd: 'groups | grep -q -w admin'
+      changed_when: false
+    - name: "Ensure user is not running as root"
+      ansible.builtin.shell:
+        cmd: '[[ "$(whoami)" != "root" ]] || exit 1'
+      changed_when: false
+    - name: "Ensure sudo password is provided"
+      become: true
+      ansible.builtin.shell:
+        cmd: '[[ "$(whoami)" == "root" ]] || exit 1'
+      changed_when: false      
   roles:
     - poweruser
     - any-developer
     - web-developer
     - dotnet-developer
+    - site-reliability-engineer
