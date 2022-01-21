@@ -1,12 +1,4 @@
-# This role is a bit of a bummer as it only installs the latest version of the
-# dotnet SDK, it would be better to specify the SDK version, additionally
-# have multiple versions installed side-by-side
-
-- name: Install gnu-tar
-  community.general.homebrew:
-    name: gnu-tar
-    state: present  
-
+---
 - name: Create dotnet directory
   file:
     path: /usr/local/share/dotnet

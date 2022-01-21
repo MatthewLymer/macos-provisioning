@@ -1,0 +1,13 @@
+---
+- name: "Install JetBrains IDEA CE"
+  community.general.homebrew_cask:
+    name: intellij-idea-ce
+    state: present
+
+- name: "Create JetBrains IDEA CE"
+  copy:
+    dest: /usr/local/bin/idea
+    mode: +x
+    content: |
+      #!/bin/sh
+      open -na "IntelliJ IDEA CE.app" --args "$@"

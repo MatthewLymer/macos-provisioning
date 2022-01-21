@@ -1,3 +1,4 @@
+---
 - name: "Add gcloud docker alias"
   blockinfile:
     path: ~/.zshrc

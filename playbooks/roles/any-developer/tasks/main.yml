@@ -1,3 +1,4 @@
+---
 - name: Install git-gui
   community.general.homebrew:
     name: git-gui
