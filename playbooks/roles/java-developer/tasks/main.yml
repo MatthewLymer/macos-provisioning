@@ -1,4 +1,24 @@
 ---
+- name: "Create Java Library Folder"
+  file:
+    path: /Library/Java/JavaVirtualMachines
+    state: directory
+
+- block:
+    - name: "Install openjdk-17.0.2_macos-x64_bin : Determine whether JDK is installed"
+      command: "ls /Library/Java/JavaVirtualMachines/jdk-17.0.2.jdk"
+      failed_when: false
+      register: openjdk_17_0_2_jdk
+      changed_when: false
+
+    - name: "Install openjdk-17.0.2_macos-x64_bin : Install JDK"
+      become: true
+      when: openjdk_17_0_2_jdk.rc != 0
+      ansible.builtin.unarchive:
+        src: https://download.java.net/java/GA/jdk17.0.2/dfd4a8d0985749f896bed50d7138ee7f/8/GPL/openjdk-17.0.2_macos-x64_bin.tar.gz
+        dest: /Library/Java/JavaVirtualMachines
+        remote_src: yes
+
 - name: "Install JetBrains IDEA CE"
   community.general.homebrew_cask:
     name: intellij-idea-ce
