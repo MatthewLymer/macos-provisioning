@@ -8,3 +8,16 @@
   community.general.homebrew_cask:
     name: visual-studio-code
     state: present
+
+- block: 
+  - name: "Install docker : Check existing installation"
+    shell: "which docker"
+    failed_when: false
+    register: which_docker
+    changed_when: false
+
+  - name: "Install docker : Install via homebrew cask"
+    when: which_docker.rc != 0
+    community.general.homebrew_cask:
+      name: docker
+      state: present  

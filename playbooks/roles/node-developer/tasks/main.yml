@@ -1,0 +1,35 @@
+---
+- name: 'Install node version manager {{ nvm.version }}'
+  git:
+  args:
+    repo: https://github.com/creationix/nvm.git
+    dest: ~/.nvm
+    version: "{{ nvm.version }}"
+
+- name: 'Add nvm command to shell profile'
+  blockinfile:
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: nvm dir and script"
+    path: ~/.zshrc
+    create: true
+    block: |
+      export NVM_DIR="$HOME/.nvm"
+      [ -s "$HOME/.nvm/nvm.sh" ] && source "$HOME/.nvm/nvm.sh"
+
+- name: 'Install node {{ nvm.node_version }}'
+  shell: 'source "$HOME/.nvm/nvm.sh" && nvm install {{ nvm.node_version }}'
+  register: nvm_install_result
+  changed_when: "'is already installed.' not in nvm_install_result.stdout and 'is already installed.' not in nvm_install_result.stderr"
+
+- name: 'Register node dirname'
+  shell: 'source "$HOME/.nvm/nvm.sh" && echo "$(dirname $(nvm which {{ nvm.node_version }}))"'
+  register: node_dirname_result
+  changed_when: false
+
+- name: 'Install global npm packages'
+  community.general.npm:
+    executable: "{{ node_dirname_result.stdout }}/npm"
+    name: "{{ item }}"
+    global: yes
+    state: present
+  with_items:
+    - yarn
