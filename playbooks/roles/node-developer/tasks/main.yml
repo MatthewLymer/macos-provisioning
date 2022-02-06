@@ -33,3 +33,16 @@
     state: present
   with_items:
     - yarn
+
+- name: "Install JetBrains WebStorm"
+  community.general.homebrew_cask:
+    name: webstorm
+    state: present
+
+- name: "Create JetBrains WebStorm shortcut"
+  copy:
+    dest: /usr/local/bin/webstorm
+    mode: +x
+    content: |
+      #!/bin/sh
+      open -na "WebStorm.app" --args "$@"
