@@ -1,4 +1,11 @@
 ---
+- name: Setup shell prompt
+  blockinfile:
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: shell prompt"
+    path: ~/.zshrc
+    create: true
+    block: "{{ lookup('file', 'prompt.sh') }}"
+
 - name: Install git-gui
   community.general.homebrew:
     name: git-gui
