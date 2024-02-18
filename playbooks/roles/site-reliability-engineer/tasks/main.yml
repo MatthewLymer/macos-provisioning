@@ -1,11 +1,29 @@
 ---
-- name: "Add gcloud docker alias"
+- block:
+  - name: "Install gcloud : Check existing installation"
+    shell: hash gcloud
+    failed_when: false
+    register: hash_gcloud
+    changed_when: false
+
+  - when: hash_gcloud.rc != 0
+    block:
+      - name: "Install gcloud : Download install file"
+        get_url:
+          url: https://sdk.cloud.google.com
+          dest: /tmp/install-google-cloud-sdk.sh
+          mode: '+x'
+
+      - name: "Install gcloud : Execute install file"
+        shell: /tmp/install-google-cloud-sdk.sh --disable-prompts
+
+- name: "Install gcloud : Update path for google-cloud-sdk"
   blockinfile:
-    marker: "# {mark} ANSIBLE MANAGED BLOCK: gcloud docker alias"
-    path: ~/.zshrc
+    marker: "# {mark} ANSIBLE MANAGED BLOCK: google-cloud-sdk path"
+    path: "~/.zshrc"
     create: true
     block: |
-      alias gcloud='docker run --rm -it --volume ${HOME}/.config/gcloud:/root/.config/gcloud --volume ${PWD}:/workdir --workdir="/workdir" google/cloud-sdk gcloud'
+      export PATH=$PATH:$HOME/google-cloud-sdk/bin
 
 - name: "Install terraform switch"
   community.general.homebrew:

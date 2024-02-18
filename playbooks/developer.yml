@@ -20,6 +20,7 @@
   roles:
     - poweruser
     - any-developer
+    - datascience-developer
     - web-developer
     - dotnet-developer
     - java-developer

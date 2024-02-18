@@ -1,0 +1,4 @@
+- name: "Install Octave"
+  community.general.homebrew:
+    name: octave
+    state: present
