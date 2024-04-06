@@ -6,15 +6,14 @@
     create: true
     block: "{{ lookup('file', 'prompt.sh') }}"
 
-- name: Install git-gui
+- name: Install misc tools
   community.general.homebrew:
-    name: git-gui
-    state: present  
-
-- name: "Install Visual Studio Code"
-  community.general.homebrew_cask:
-    name: visual-studio-code
+    name: "{{ item }}"
     state: present
+  with_items:
+    - git-gui
+    - jq
+    - htop
 
 - block: 
   - name: "Install docker : Check existing installation"

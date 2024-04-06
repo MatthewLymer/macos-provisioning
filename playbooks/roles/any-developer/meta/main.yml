@@ -1,0 +1,5 @@
+dependencies:
+  - role: tooling/vscode-user
+    vars:
+      extensions:
+        - DavidAnson.vscode-markdownlint

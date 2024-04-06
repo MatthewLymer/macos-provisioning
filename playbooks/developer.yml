@@ -18,7 +18,6 @@
         cmd: '[[ "$(whoami)" == "root" ]] || exit 1'
       changed_when: false      
   roles:
-    - poweruser
     - any-developer
     - datascience-developer
     - web-developer
